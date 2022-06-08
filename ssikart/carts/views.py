@@ -7,7 +7,6 @@ from django.shortcuts import get_object_or_404
 from carts.utils import _cart_id
 
 
-
 def add_cart(request, product_id):
     product = Product.objects.get(id=product_id)  #get the product
     try:
@@ -57,7 +56,6 @@ def cart(request, total=0, quantity=0, cart_item=None):
         'tax': tax,
         'grand_total' : grand_total,
     }
-    print("CONTEXT: ", context)
     return render(request, 'carts/cart.html', context)
 
 

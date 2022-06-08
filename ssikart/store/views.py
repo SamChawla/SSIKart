@@ -1,10 +1,10 @@
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render, get_object_or_404
 from store.models import Product
 from category.models import Category
 from carts.models import CartItem
 from carts.utils import _cart_id
 
-# Create your views here.
 
 def store_home(request, category_slug=None):
     category = None
@@ -16,11 +16,16 @@ def store_home(request, category_slug=None):
         products = Product.objects.filter(category=category, is_available=True)
     else:
         products = Product.objects.filter(is_available=True)
+    
+    paginator = Paginator(products, 1)
+    page = request.GET.get('page')
+    paged_products = paginator.get_page(page)
+    
     if products:
         products_count = products.count()
 
     context_data = {
-        "products": products,
+        "products": paged_products,
         "products_count":products_count,
     }
     return render(request, "store/store.html", context_data)
