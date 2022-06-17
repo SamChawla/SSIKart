@@ -13,7 +13,7 @@ Useful Commands:
 
 ## TODO
 
-- Home page update [Assignment]
+- Home page update [Assignment] [Done]
 - `Add to Cart` link update on store page [Done]
 - Showing Total Amount for each product in Cart
-
+- null vs blank in models [Assignment]

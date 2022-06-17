@@ -4,6 +4,7 @@ from carts.utils import _cart_id
 
 def counter(request):
     cart_count = 0
+    cart_items = []
     if 'admin' in request.path:
         return {}
     else:
