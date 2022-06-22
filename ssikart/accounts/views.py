@@ -1,5 +1,6 @@
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from accounts.forms import RegistrationForm
 from accounts.models import Account
 
@@ -32,8 +33,24 @@ def register(request):
 
 
 def login(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        user = auth.authenticate(email=email, password=password)
+
+        if user:
+            auth.login(request, user)
+            return redirect('ssi-home')
+        else:
+            messages.error(request, 'Invalid Credentials!')
+            return redirect('login')
+
     return render(request, 'accounts/login.html')
 
 
+@login_required(login_url='login')
 def logout(request):
-    return render(request, 'accounts/logout.html')
+    auth.logout(request)
+    messages.success(request, "You are logged out successfully!")
+    return redirect('login')
