@@ -130,6 +130,14 @@ USE_TZ = True
 AUTH_USER_MODEL = 'accounts.Account'
 
 
+# SMTP Configuration
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'your_email'
+EMAIL_HOST_PASSWORD = 'your_app_password'
+EMAIL_USE_TLS = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
