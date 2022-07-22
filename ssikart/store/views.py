@@ -18,7 +18,7 @@ def store_home(request, category_slug=None):
     else:
         products = Product.objects.filter(is_available=True)
     
-    paginator = Paginator(products, 1)
+    paginator = Paginator(products, 10)
     page = request.GET.get('page')
     paged_products = paginator.get_page(page)
     
