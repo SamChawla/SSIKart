@@ -49,7 +49,7 @@ def product_detail(request, category_slug=None, product_slug=None):
 def search(request):
     keyword = request.GET.get("keyword")
     products = None
-    products_count = 0
+    product_count = 0
     
     if keyword:
         products = Product.objects.order_by('-created_date').filter(Q(description__icontains=keyword) | Q(product_name__icontains=keyword))
