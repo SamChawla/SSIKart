@@ -17,3 +17,8 @@ Useful Commands:
 - `Add to Cart` link update on store page [Done]
 - Showing Total Amount for each product in Cart
 - null vs blank in models [Assignment]
+- Ratings and Review System
+
+## Useful Links
+
+- [Django Signals](https://simpleisbetterthancomplex.com/tutorial/2016/07/28/how-to-create-django-signals.html)

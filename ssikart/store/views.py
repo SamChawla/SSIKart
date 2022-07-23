@@ -1,7 +1,7 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
-from store.models import Product
+from store.models import Product, ProductGallery
 from category.models import Category
 from carts.models import CartItem
 from carts.utils import _cart_id
@@ -17,6 +17,10 @@ def store_home(request, category_slug=None):
         products = Product.objects.filter(category=category, is_available=True)
     else:
         products = Product.objects.filter(is_available=True)
+    
+    # To make results consistent
+    if products:
+        products = products.order_by('-modified_date')
     
     paginator = Paginator(products, 10)
     page = request.GET.get('page')
@@ -36,12 +40,14 @@ def product_detail(request, category_slug=None, product_slug=None):
     try:
         single_product = Product.objects.get(category__slug=category_slug, slug=product_slug)
         in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product= single_product).exists()
+        product_gallery = ProductGallery.objects.filter(product_id=single_product.id)
     except Exception as e:
         print(e)
         raise e
     context_data = {
         "single_product": single_product,
         'in_cart' : in_cart,
+        "product_gallery": product_gallery,
     }
     return render(request, 'store/product_detail.html', context_data)
 

@@ -1,7 +1,7 @@
 from django.urls import path
 
 from accounts.views import (activate, change_password, dashboard, edit_profile,
-                            forgot_password, login, logout, my_orders,
+                            forgot_password, login, logout, my_orders, order_detail,
                             register, reset_password, resetpassword_validate)
 
 urlpatterns = [
@@ -13,7 +13,9 @@ urlpatterns = [
     
     path('my_orders/', my_orders, name='my_orders'),
     path('edit_profile/', edit_profile, name='edit_profile'), 
-    path('change_password/', change_password, name='change_password'), 
+    path('change_password/', change_password, name='change_password'),
+
+    path('order_detail/<int:order_id>/', order_detail, name='order_detail'),
 
     # Forget Password Urls
     path("forgot-password/", forgot_password, name="forgot_password"),

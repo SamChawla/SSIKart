@@ -25,7 +25,7 @@ admin.site.site_title = "SSIKart Admin Portal"
 admin.site.index_title = "Welcome to SSIKart Admin Portal"
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('staff/user/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path("store/", include('store.urls')),
     path("", include('home.urls')),

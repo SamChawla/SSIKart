@@ -14,7 +14,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from accounts.forms import RegistrationForm, UserForm, UserProfileForm
 from accounts.models import Account, UserProfile
 from carts.models import Cart, CartItem
-from orders.models import Order
+from orders.models import Order, OrderProduct
 
 
 # Create your views here.
@@ -171,8 +171,10 @@ def dashboard(request):
     )
     orders_count = orders.count()
 
+    user_profile = UserProfile.objects.get(user_id=request.user.id)
     context_data = {
         "orders_count": orders_count,
+        "user_profile": user_profile,
     }
 
     return render(request, "accounts/dashboard.html", context_data)
@@ -312,3 +314,23 @@ def change_password(request):
             messages.error(request, 'Password and Confirm Password does not match!')
             return redirect('change_password')
     return render(request, 'accounts/change_password.html')
+
+
+@login_required(login_url='login') 
+def order_detail(request, order_id):
+    order =  get_object_or_404(Order, order_number=order_id, user=request.user.id) 
+    
+    order_detail = OrderProduct.objects.filter(order__order_number=order_id) 
+    
+    subtotal = 0 
+
+    for i in order_detail: 
+        subtotal += i.product_price * i.quantity 
+
+ 
+    context_data = { 
+        'order_detail': order_detail, 
+        'order': order, 
+        'subtotal': subtotal, 
+    } 
+    return render(request, 'accounts/order_detail.html', context_data) 

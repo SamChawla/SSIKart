@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from decouple import config 
 from pathlib import Path
 from django.contrib.messages import constants as messages
 
@@ -21,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-secure-(2t$qfn&1&pt(i7j=m3u$4=uu1*m5%&85y2=ep03h2g6(=ki+*'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
@@ -133,11 +134,11 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 # SMTP Configuration
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'your_email'
-EMAIL_HOST_PASSWORD = 'your_app_password'
-EMAIL_USE_TLS = True
+EMAIL_HOST =  config('EMAIL_HOST')
+EMAIL_PORT =  config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 
 
 # Static files (CSS, JavaScript, Images)
@@ -145,7 +146,7 @@ EMAIL_USE_TLS = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
-STATICFILES_DIRS = []
+STATICFILES_DIRS = ['ssikart/static']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
