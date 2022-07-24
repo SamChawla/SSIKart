@@ -22,3 +22,5 @@ Useful Commands:
 ## Useful Links
 
 - [Django Signals](https://simpleisbetterthancomplex.com/tutorial/2016/07/28/how-to-create-django-signals.html)
+
+- [Deployment on Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html)
